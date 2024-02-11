@@ -153,14 +153,15 @@ def addExamples(word):
     with shelve.open(config.examplesDictName) as examples:
         try:
             examples[word]
-        except:  # if there is no entry for this word
-            response = requests.get("https://twinword-word-graph-dictionary.p.mashape.com/example/?entry=" +
-                                    word, headers=config.headers)
-            if (response.status_code == 200 and
-                    response.json()['result_msg'] != 'Entry word not found'):
-                examples[word] = response.json()["example"]
-            else:
-                examples[word] = "No examples"
+        except KeyError:  # if there is no entry for this word
+            response = requests.get(config.url, headers=config.headers, params={"entry": word})
+            print(response.json())
+            if response.status_code == 200:
+                result_msg = response.json().get('result_msg', '')
+                if result_msg != 'Entry word not found':
+                    examples[word] = response.json().get("example", "No examples")
+                else:
+                    examples[word] = "No examples"
 
 
 # function for command /deletewords
