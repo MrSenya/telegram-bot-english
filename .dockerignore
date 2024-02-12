@@ -1,0 +1,13 @@
+#Ignore pethon venv
+bin
+include
+lib
+pyvenv.cfg
+
+#Ignore git's files
+.gitignore
+README.md
+
+#Ignore db files 
+dictShelve.db
+examplesShelve.db
