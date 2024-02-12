@@ -212,9 +212,9 @@ def startlearningCommand(message):
         if ifDictIsEmpty(cid, dictionary):
             lucinda.send_message(cid, "Your dictionary is empty. /addwords first")
             return
-        lucinda.send_message(cid, commands["startlearning"])
-        addUserWhoLearnsWords(cid)
-        sendWord(cid)  # send english word to user
+    lucinda.send_message(cid, commands["startlearning"])
+    addUserWhoLearnsWords(cid)
+    sendWord(cid)  # send english word to user
 
 
 # send sentence with english word to user

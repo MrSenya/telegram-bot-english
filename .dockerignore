@@ -5,6 +5,7 @@ lib
 pyvenv.cfg
 
 #Ignore git's files
+.git
 .gitignore
 README.md
 
