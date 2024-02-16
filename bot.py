@@ -49,8 +49,8 @@ commands = {
             "I will give you words in english and "
             "you should type their translation.",
     "addwords": "Send me words in this format:\n"
-                "english word 1 - translation 1\n"
-                "english word 2 - translation 2\n"
+                "english word 1 = translation 1\n"
+                "english word 2 = translation 2\n"
                 "To stop command type /stop",
     "deletewords": "Send me words, which you want to "
                    "delete, in this format:\nenglish word 1, "
@@ -111,7 +111,7 @@ def addWordsToDictionary(message):
         lucinda.send_message(cid, "success!")
     else:
         lucinda.send_message(cid, "Sorry, I cant understand your message. "
-                             "Don't forget to put\'-\' between word and "
+                             "Don't forget to put\'=\' between word and "
                              "translation. Please try again /addwords")
 
 
@@ -126,14 +126,14 @@ def addWordsFromText(cid, text):
         lines = text.split('\n')
         for line in lines:
             try:
-                word, translation = line.split('-')
+                word, translation = line.split('=')
             except:
                 return False
             if translation == "":
                 return False
             translation = translation.strip()  # delete spaces from begining and end
             word = word.strip()  # delete spaces from begining and end
-            lucinda.send_message(cid, word + " - " + translation + "\n")
+            lucinda.send_message(cid, word + " = " + translation + "\n")
             userDict[word] = translation
             addExamples(word)
         dictionary[str(cid)] = userDict  # add word to dictionary
@@ -239,13 +239,14 @@ def getExample(word):
     with shelve.open(config.examplesDictName) as examples:  # open shelve with examples
         try:
             exampleList = examples[word]
-        except:
+        except KeyError:
             return False
-        if exampleList == "No examples":
-            return False
-        else:
+        if exampleList and exampleList != "No examples":
             example = random.choice(exampleList)
             return example
+        else:
+            return False
+
 
 
 # Check user's answer
