@@ -1,7 +1,7 @@
 """
  Config info
 """
-token = '6947459220:AAFRdOgQ_V-q2upBjQPA5B2WWNkjke-HS00'
+token = $TELE_TOKEN
 dictName = "dictShelve"
 examplesDictName = "examplesShelve"
 
